@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from 'react'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import { Grid, Card, CardMedia, CardContent, Button, CardHeader, TextField, Alert, RadioGroup, FormControlLabel, Radio } from '@mui/material'
+import { Grid, Card, CardMedia, CardContent, Button, CardHeader, TextField, Alert, RadioGroup, FormControlLabel, Radio, Container } from '@mui/material'
 import { Typography, Box, Chip } from '@mui/material'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import useToggle from '../../CustomHook/useToggle'
@@ -140,30 +140,34 @@ export default function Display() {
             justifyContent: 'center',
             alignItems: 'center',
             alignContent: 'center',
+            padding: '10px',
           }}>
             <Card sx={{
               backgroundColor: '#dbd1d0',
-              boxShadow: '0 0 10px 5px #fff',
+              boxShadow: darkMode ? 'rgba(255, 255, 255, 0.8) 0px 22px 70px 4px' : 'rgba(0, 0, 0, 0.8) 0px 22px 70px 4px',
               margin: '25px',
-              width: '50%',
+              width: '100%',
+              maxWidth: '550px', // Suitable for mobile and does not stretch too wide on PC
             }}>
               <CardHeader title="Orchid information" sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
+                padding: '0px'
               }}></CardHeader>
               <CardMedia sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-
+                padding: '0px'
               }}>
                 <img src={dataDetail.image} style={{
-                  width: '500px',
+                  // maxWidth: window.innerWidth <= 768 ? '320px' : '500px',
+                  width: '100%',
+                  height: 'auto',
                   padding: '10px',
-                  margin: '10px',
                 }} />
                 <h2>{dataDetail.name}</h2>
               </CardMedia>
@@ -174,33 +178,35 @@ export default function Display() {
                 alignItems: 'center',
               }}>
                 {!update ? (
-                  <div className='row' style={{
-                    width: '100%',
-                  }}>
-                    <div className='col' style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
+                  <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}>
+                    <Grid className='col' item xs={12} sm={12} md={6} lg={6}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        padding: '10px',
+                        maxWidth: '100%'
+                      }}>
                       <Typography variant="h6" color="text.primary">Color: {dataDetail.color}</Typography>
                       <Typography variant="h6" color="text.primary">Rating: {dataDetail.rating}</Typography>
                       <Typography variant="h6" color="text.primary">Origin: {dataDetail.origin}</Typography>
-                    </div>
-                    <div className='col' style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}  >
+                    </Grid>
+                    <Grid className='col' item xs={12} sm={12} md={6} lg={6}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        padding: '10px',
+                        maxWidth: '100%'
+                      }}  >
                       <Typography variant="h6" color="text.primary">Category: {dataDetail.category}</Typography>
                       <Typography variant="h6" color="text.primary">
                         Is special:
                         <Chip label={dataDetail.isSpecial ? 'Rare' : 'Normal'} color={dataDetail.isSpecial ? 'success' : 'default'} />
                       </Typography>
                       <Typography variant="h6" color="text.primary">Edited by: {dataDetail.editedby}</Typography>
-                    </div>
-                  </div>
+                    </Grid>
+                  </Grid>
                 ) : (
                   <>
                     <Formik
@@ -313,20 +319,31 @@ export default function Display() {
                   </>)}
               </CardContent>
               {user &&
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  alignItems: 'center',
-                  margin: '10px',
-                }}>
-                  <Button onClick={updateOnClick} variant="contained" size="large" color="warning">
-                    {contextUpdate}
-                  </Button>
-                  <Button onClick={deleteOnClick} variant="contained" size="large" color="error">
-                    Click here to delete
-                  </Button>
-                </div>
+                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}>
+                  <Grid item xs={12} sm={12} md={6} lg={6}
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      maxWidth: '100%'
+                    }}>
+                    <Button onClick={updateOnClick} variant="contained" size="large" color="warning">
+                      {contextUpdate}
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      maxWidth: '100%',
+
+                    }}>
+                    <Button onClick={deleteOnClick} variant="contained" size="large" color="error">
+                      Click here to delete
+                    </Button>
+                  </Grid>
+                </Grid>
               }
               <div style={{
                 display: 'flex',
@@ -350,7 +367,7 @@ export default function Display() {
 
           </div>
 
-        </div>
+        </div >
       ) : (
         <div style={{
           backgroundColor: darkMode ? '#fff' : '#6f6f6f',
@@ -366,7 +383,8 @@ export default function Display() {
             <h1>Loading...</h1>
           </div>
         </div>
-      )}
+      )
+      }
     </>
   )
 }

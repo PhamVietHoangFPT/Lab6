@@ -97,6 +97,7 @@ export default function ContentPre() {
 											backgroundColor: '#dbd1d0',
 											boxShadow: '0 0 10px 5px #fff',
 											cursor: 'pointer',
+											transition: 'transform 0.3s ease-out, box-shadow 0.3s ease-out',
 											'&:hover': {
 												boxShadow: '0 0 10px 5px rgba(255, 105, 180, 0.8)',
 												transform: 'scale(1.2)',
