@@ -96,7 +96,12 @@ export default function ContentPre() {
 											height: '100%',
 											backgroundColor: '#dbd1d0',
 											boxShadow: '0 0 10px 5px #fff',
-										}}>
+											cursor: 'pointer',
+											'&:hover': {
+												boxShadow: '0 0 10px 5px rgba(255, 105, 180, 0.8)',
+												transform: 'scale(1.2)',
+											}
+										}} onClick={() => goToDetailId(Orchid.id)}>
 											<CardMedia sx={{
 												display: 'flex',
 												justifyContent: 'center',
@@ -113,9 +118,6 @@ export default function ContentPre() {
 												<h3>{Orchid.name}</h3>
 												<h4>Price: {calculatePrice(Orchid.rating, Orchid.isSpecial)}$</h4>
 												<Rating name="read-only" value={Orchid.rating} readOnly precision={0.1} />
-												<Button variant="contained" size="large" fullWidth color="primary" onClick={() => goToDetailId(Orchid.id)}>
-													Detail
-												</Button>
 											</CardContent>
 										</Card>
 									</Grid>
