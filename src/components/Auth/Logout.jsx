@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 function Logout() {
   const handleLogout = () => {
     localStorage.removeItem("userToken");
+    localStorage.clear();
     window.location.reload()
   };
 

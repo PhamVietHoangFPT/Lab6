@@ -3,7 +3,7 @@ import './Header.css'
 export default function Header() {
     return (
         <header>
-            <h3>Orchids collection</h3>
+            <h1>Orchids collection</h1>
         </header>
     )
 }

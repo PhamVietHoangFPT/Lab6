@@ -9,6 +9,7 @@ import Contact from './components/pages/Contact'
 import About from './components/pages/About'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Display from './components/pages/Display'
+import CreateOrchid from './components/content/CreateOrchid'
 import { useEffect } from 'react'
 import { gapi } from 'gapi-script'
 import { GoogleOAuthProvider } from '@react-oauth/google'
@@ -37,6 +38,7 @@ export default function App() {
           <Route path='/contact' element={<Contact />}></Route>
           <Route path='/about' element={<About />}></Route>
           <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route path='/create' element={<CreateOrchid></CreateOrchid>}></Route>
         </Routes>
         <Footer></Footer>
       </BrowserRouter>

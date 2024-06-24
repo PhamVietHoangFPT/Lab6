@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import { Card, CardMedia, CardContent } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -8,8 +9,9 @@ import { Rating } from "@mui/material";
 import useToggle from "../../CustomHook/useToggle";
 export default function ContentPre() {
 	const [data, setData] = useState([]);
-
+	const [trigger, setTrigger] = useState(false);
 	const navigate = useNavigate();
+	const user = JSON.parse(localStorage.getItem("userInfo"));
 	const goToDetailId = (id) => {
 		navigate(`/home/details/${id}`, { state: { darkMode: darkMode, contextDarkMode: contextDarkMode } });
 	}
@@ -26,7 +28,7 @@ export default function ContentPre() {
 			.then(response => response.json())
 			.then(data => setData(data))
 			.catch(error => console.error('Error fetching data:', error))
-	}, [])
+	}, [trigger])
 
 	function calculatePrice(rate, isRare) {
 		if (isRare) {
@@ -35,57 +37,104 @@ export default function ContentPre() {
 			return Math.round(rate * 100)
 		}
 	}
+
+
 	return (
-		<div style={{
-			backgroundColor: darkMode ? '#fff' : '#6f6f6f',
-		}}>
-			<Button onClick={toggleDarkMode} variant="contained" size="large" sx={{
-				marginBottom: '10px',
-				height: '50px',
-			}}>
-				{contextDarkMode}
-			</Button>
-			<Container>
-				<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}>
-					{data.map((Orchid) => (
-						<Grid key={Orchid.id} item xs={4} sm={4} md={3} lg={3}
-							sx={{
-								marginBottom: '10px',
-							}}>
-							<Card sx={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-between',
-								height: '100%',
-								backgroundColor: '#dbd1d0',
-								boxShadow: '0 0 10px 5px #fff',
-							}}>
-								<CardMedia sx={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center',
+		<>
+			{
+				data.length > 0 ? (
+					<div style={{
+						backgroundColor: darkMode ? '#fff' : '#6f6f6f',
+					}}>
+						
+						<div style={{
+							display: 'flex',
+							justifyContent: 'space-between',
+							padding: '10px',
+						}}>
+							<Button onClick={toggleDarkMode} variant="contained" size="large"
+								sx={{
+									marginBottom: '10px',
+									height: '50px',
+									backgroundColor: darkMode ? '#000' : '#fff',
+									color: darkMode ? '#fff' : '#000',
+									'&:hover': {
+										backgroundColor: darkMode ? '#1a1a1a' : '#e6e6e6',
+										color: darkMode ? '#f2f2f2' : '#1a1a1a',
+									}
 								}}>
-									<img src={Orchid.image} style={{
-										width: '300px',
-										padding: '10px',
-										margin: '25px',
-									}} />
-								</CardMedia>
-								<CardContent>
+								{contextDarkMode}
+							</Button>
+							{user &&
+								<Button sx={{
+									marginBottom: '10px',
+									height: '50px',
+									backgroundColor: darkMode ? '#000' : '#fff',
+									color: darkMode ? '#fff' : '#000',
+									'&:hover': {
+										backgroundColor: darkMode ? '#1a1a1a' : '#e6e6e6',
+										color: darkMode ? '#f2f2f2' : '#1a1a1a',
+									}
+								}}
+									onClick={() => navigate('/create', { state: { darkMode: darkMode, contextDarkMode: contextDarkMode } })}>CREATE NEW ORCHID</Button>
+							}
+						</div>
+						<Container>
+							<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}>
+								{data.map((Orchid) => (
+									<Grid key={Orchid.id} item xs={4} sm={4} md={3} lg={3}
+										sx={{
+											marginBottom: '10px',
+										}}>
+										<Card sx={{
+											display: 'flex',
+											flexDirection: 'column',
+											justifyContent: 'space-between',
+											height: '100%',
+											backgroundColor: '#dbd1d0',
+											boxShadow: '0 0 10px 5px #fff',
+										}}>
+											<CardMedia sx={{
+												display: 'flex',
+												justifyContent: 'center',
+												alignItems: 'center',
+											}}>
+												<img src={Orchid.image} style={{
+													width: '300px',
+													padding: '10px',
+													margin: '25px',
+												}} />
+											</CardMedia>
+											<CardContent>
 
-									<h3>{Orchid.name}</h3>
-									<h4>Price: {calculatePrice(Orchid.rating, Orchid.isSpecial)}$</h4>
-									<Rating name="read-only" value={Orchid.rating} readOnly precision={0.1} />
-									<Button variant="contained" size="large" fullWidth color="primary" onClick={() => goToDetailId(Orchid.id)}>
-										Detail
-									</Button>
-								</CardContent>
-							</Card>
-						</Grid>
-					))}
-				</Grid>
-			</Container>
-
-		</div >
+												<h3>{Orchid.name}</h3>
+												<h4>Price: {calculatePrice(Orchid.rating, Orchid.isSpecial)}$</h4>
+												<Rating name="read-only" value={Orchid.rating} readOnly precision={0.1} />
+												<Button variant="contained" size="large" fullWidth color="primary" onClick={() => goToDetailId(Orchid.id)}>
+													Detail
+												</Button>
+											</CardContent>
+										</Card>
+									</Grid>
+								))}
+							</Grid>
+						</Container>
+					</div >)
+					: (
+						<div style={{
+							backgroundColor: darkMode ? '#fff' : '#6f6f6f',
+							color: darkMode ? '#000' : '#fff',
+							height: '90vh',
+						}}>
+							<div style={{
+								display: 'flex',
+								justifyContent: 'center',
+							}}>
+								<h1>Loading...</h1>
+							</div>
+						</div>
+					)
+			}
+		</>
 	)
 }
