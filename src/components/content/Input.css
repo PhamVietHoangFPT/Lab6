@@ -1,0 +1,27 @@
+:root {
+  --background-color: #fff;
+  /* Light mode background */
+  --text-color: #000;
+  /* Light mode text */
+}
+
+[data-theme="dark"] {
+  --background-color: #333;
+  /* Dark mode background */
+  --text-color: #fff;
+  /* Dark mode text */
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-color);
+  -webkit-box-shadow: 0 0 0px 1000px var(--background-color) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}

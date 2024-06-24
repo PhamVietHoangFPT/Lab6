@@ -44,9 +44,12 @@ export default function ContentPre() {
 			{
 				data.length > 0 ? (
 					<div style={{
-						backgroundColor: darkMode ? '#fff' : '#6f6f6f',
+						transition: 'background-image 0.5s ease-in-out',
+						backgroundImage: darkMode ? 'url("https://c1.wallpaperflare.com/preview/233/661/101/flower-orchid-petal-stem.jpg")' : 'url("https://img.freepik.com/premium-photo/flowers-white-orchid-phalaenopsis-white-background-copy-space-generative-ai_535844-3245.jpg")',
+						backgroundSize: 'cover',
+						backgroundPosition: 'center',
 					}}>
-						
+
 						<div style={{
 							display: 'flex',
 							justifyContent: 'space-between',
@@ -56,11 +59,11 @@ export default function ContentPre() {
 								sx={{
 									marginBottom: '10px',
 									height: '50px',
-									backgroundColor: darkMode ? '#000' : '#fff',
-									color: darkMode ? '#fff' : '#000',
+									backgroundColor: darkMode ? '#fff' : '#000',
+									color: darkMode ? '#000' : '#fff',
 									'&:hover': {
-										backgroundColor: darkMode ? '#1a1a1a' : '#e6e6e6',
-										color: darkMode ? '#f2f2f2' : '#1a1a1a',
+										backgroundColor: darkMode ? '#e6e6e6' : '#1a1a1a',
+										color: darkMode ? '#1a1a1a' : '#f2f2f2',
 									}
 								}}>
 								{contextDarkMode}
@@ -69,11 +72,11 @@ export default function ContentPre() {
 								<Button sx={{
 									marginBottom: '10px',
 									height: '50px',
-									backgroundColor: darkMode ? '#000' : '#fff',
-									color: darkMode ? '#fff' : '#000',
+									backgroundColor: darkMode ? '#fff' : '#000', // Reversed colors
+									color: darkMode ? '#000' : '#fff', // Reversed text color
 									'&:hover': {
-										backgroundColor: darkMode ? '#1a1a1a' : '#e6e6e6',
-										color: darkMode ? '#f2f2f2' : '#1a1a1a',
+										backgroundColor: darkMode ? '#e6e6e6' : '#1a1a1a', // Reversed hover background color
+										color: darkMode ? '#1a1a1a' : '#f2f2f2', // Reversed hover text color
 									}
 								}}
 									onClick={() => navigate('/create', { state: { darkMode: darkMode, contextDarkMode: contextDarkMode } })}>CREATE NEW ORCHID</Button>
@@ -122,9 +125,11 @@ export default function ContentPre() {
 					</div >)
 					: (
 						<div style={{
-							backgroundColor: darkMode ? '#fff' : '#6f6f6f',
-							color: darkMode ? '#000' : '#fff',
-							height: '90vh',
+							transition: 'background-image 0.5s ease-in-out',
+							backgroundImage: darkMode ? 'url("https://c1.wallpaperflare.com/preview/233/661/101/flower-orchid-petal-stem.jpg")' : 'url("https://img.freepik.com/premium-photo/flowers-white-orchid-phalaenopsis-white-background-copy-space-generative-ai_535844-3245.jpg")',
+							backgroundSize: 'cover',
+							backgroundPosition: 'center',
+							height: '100vh',
 						}}>
 							<div style={{
 								display: 'flex',
