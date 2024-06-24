@@ -29,6 +29,7 @@ export default function Display() {
   function updateOnClick() {
     setUpdate(!update)
     setContextUpdate(update ? 'Click here to update' : 'Click here to close')
+    setTrigger(prev => !prev)
   }
 
   function deleteOnClick() {
