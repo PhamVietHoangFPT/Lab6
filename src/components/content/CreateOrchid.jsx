@@ -51,7 +51,6 @@ export default function CreateOrchid() {
     // formik.resetForm()
   }
   function CreateOrchid(values) {
-    console.log(values)
     fetch(`https://663e59f4e1913c47679763a2.mockapi.io/orchids/`, {
       method: 'POST',
       headers: {
@@ -63,7 +62,7 @@ export default function CreateOrchid() {
         setResponseCode(response.status),
         response.json()
       ))
-      .then(data => console.log('Success:', data))
+      .then(data => data)
       .catch((error) => {
         console.error('Error:', error);
       });

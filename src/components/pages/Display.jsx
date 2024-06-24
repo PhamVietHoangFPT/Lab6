@@ -9,7 +9,8 @@ export default function Display() {
   const [display, setDisplay] = useState(false)
   const [update, setUpdate] = useState(false)
   const [dataDetail, setDataDetail] = useState([])
-  const [responseCode, setResponseCode] = useState(0)
+  const [responseCodeDisplay, setResponseCodeDisplay] = useState(0)
+  const [responseCodeUpdate, setResponseCodeUpdate] = useState(0)
   const [contextUpdate, setContextUpdate] = useState(update ? 'Click here to hide' : 'Click here to update')
   const [contextDisplay, setContextDisplay] = useState(display ? 'Click here to hide' : 'Click here to show all')
   const [trigger, setTrigger] = useState(false)
@@ -60,7 +61,7 @@ export default function Display() {
   useEffect(() => {
     fetch(`https://663e59f4e1913c47679763a2.mockapi.io/orchids/${id}`)
       .then(response => (
-        setResponseCode(response.status),
+        setResponseCodeDisplay(response.status),
         response.json()
       ))
       .then(data => setDataDetail(data))
@@ -99,7 +100,6 @@ export default function Display() {
   }
 
   const updateOrchid = (values) => {
-    console.log(values)
     fetch(`https://663e59f4e1913c47679763a2.mockapi.io/orchids/${id}`, {
       method: 'PUT',
       headers: {
@@ -107,8 +107,10 @@ export default function Display() {
       },
       body: JSON.stringify(values),
     })
-      .then(response => response.json())
-      .then(data => console.log('Success:', data))
+      .then(response => {
+        setResponseCodeUpdate(response.status);
+        return response.json();
+      })
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -117,7 +119,7 @@ export default function Display() {
 
   return (
     <>
-      {responseCode.toString().startsWith('2') ? (<div style={{
+      {responseCodeDisplay.toString().startsWith('2') ? (<div style={{
         backgroundColor: darkMode ? '#fff' : '#6f6f6f',
       }}>
         <Button onClick={toggleDarkMode} variant="contained" size="large"
@@ -298,6 +300,7 @@ export default function Display() {
                               </ErrorMessage>
                             </div><br />
                             <div>
+                              {responseCodeUpdate.toString().startsWith('2') ? <Alert severity="success">Update successfully</Alert> : null}
                               <Button type="submit" variant="contained" size="large" color="primary" fullWidth>Submit</Button>
                             </div>
                           </Form>
