@@ -13,6 +13,7 @@ export default function CreateOrchid() {
   const [darkMode, setDarkMode] = useToggle(initialDarkMode);
   const [contextDarkMode, setContextDarkMode] = useState(initialContextDarkMode);
   const [responseCode, setResponseCode] = useState(0)
+  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
