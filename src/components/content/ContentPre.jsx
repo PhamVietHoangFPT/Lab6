@@ -31,13 +31,9 @@ export default function ContentPre() {
 	}, [trigger])
 
 	function calculatePrice(rate, isRare) {
-		if (isRare) {
-			return Math.round(rate * 100 * 1.5)
-		} else {
-			return Math.round(rate * 100)
-		}
+		const rarityMultiplier = isRare ? 2 : 1.5;
+		return Math.round(rate * 1000 * rarityMultiplier);
 	}
-
 
 	return (
 		<>
@@ -84,10 +80,16 @@ export default function ContentPre() {
 						</div>
 						<Container>
 							<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}>
-								{data.map((Orchid) => (
+								{data.map((Orchid, index) => (
 									<Grid key={Orchid.id} item xs={4} sm={4} md={3} lg={3}
 										sx={{
 											marginBottom: '10px',
+											animation: 'floatIn 0.8s ease-out',
+											animationDelay: `${index * 100}ms`, // Delays the animation of each card
+											'@keyframes floatIn': {
+												from: { opacity: 0, transform: 'translateY(20px)' },
+												to: { opacity: 1, transform: 'translateY(0)' },
+											},
 										}}>
 										<Card sx={{
 											display: 'flex',
@@ -117,8 +119,8 @@ export default function ContentPre() {
 											<CardContent>
 
 												<h3>{Orchid.name}</h3>
-												<h4>Price: {calculatePrice(Orchid.rating, Orchid.isSpecial)}$</h4>
-												<Rating name="read-only" value={Orchid.rating} readOnly precision={0.1} />
+												<h4>Price: {calculatePrice(Orchid.rating, Orchid.isSpecial).toLocaleString()}$</h4>
+												<Rating name="read-only" value={Orchid.rating} readOnly precision={0.5} />
 											</CardContent>
 										</Card>
 									</Grid>

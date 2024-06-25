@@ -2,7 +2,7 @@ import React, { useState, useEffect, } from 'react'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { Grid, Card, CardMedia, CardContent, Button, CardHeader, TextField, Alert, RadioGroup, FormControlLabel, Radio, Container } from '@mui/material'
-import { Typography, Box, Chip } from '@mui/material'
+import { Typography, Rating, Chip } from '@mui/material'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import useToggle from '../../CustomHook/useToggle'
 export default function Display() {
@@ -122,19 +122,21 @@ export default function Display() {
           backgroundPosition: 'center',
           height: '-webkit-fill-available',
         }}>
-          <Button onClick={toggleDarkMode} variant="contained" size="large"
-            sx={{
-              marginBottom: '10px',
-              height: '50px',
-              backgroundColor: darkMode ? '#fff' : '#000',
-              color: darkMode ? '#000' : '#fff',
-              '&:hover': {
-                backgroundColor: darkMode ? '#e6e6e6' : '#1a1a1a',
-                color: darkMode ? '#1a1a1a' : '#f2f2f2',
-              }
-            }}>
-            {contextDarkMode}
-          </Button>
+          <div style={{ padding: 10 }}>
+            <Button onClick={toggleDarkMode} variant="contained" size="large"
+              sx={{
+                marginBottom: '10px',
+                height: '50px',
+                backgroundColor: darkMode ? '#fff' : '#000',
+                color: darkMode ? '#000' : '#fff',
+                '&:hover': {
+                  backgroundColor: darkMode ? '#e6e6e6' : '#1a1a1a',
+                  color: darkMode ? '#1a1a1a' : '#f2f2f2',
+                }
+              }}>
+              {contextDarkMode}
+            </Button>
+          </div>
           <div style={{
             display: 'flex',
             justifyContent: 'center',
@@ -142,12 +144,19 @@ export default function Display() {
             alignContent: 'center',
             padding: '10px',
           }}>
+
             <Card sx={{
               backgroundColor: '#dbd1d0',
               boxShadow: darkMode ? 'rgba(255, 255, 255, 0.8) 0px 22px 70px 4px' : 'rgba(0, 0, 0, 0.8) 0px 22px 70px 4px',
               margin: '25px',
               width: '100%',
-              maxWidth: '550px', // Suitable for mobile and does not stretch too wide on PC
+              maxWidth: '550px',
+              marginBottom: '10px',
+              animation: 'floatIn 0.8s ease-out',
+              '@keyframes floatIn': {
+                from: { opacity: 0, transform: 'translateY(20px)' },
+                to: { opacity: 1, transform: 'translateY(0)' },
+              },
             }}>
               <CardHeader title="Orchid information" sx={{
                 display: 'flex',
@@ -188,7 +197,7 @@ export default function Display() {
                         maxWidth: '100%'
                       }}>
                       <Typography variant="h6" color="text.primary">Color: {dataDetail.color}</Typography>
-                      <Typography variant="h6" color="text.primary">Rating: {dataDetail.rating}</Typography>
+                      <Rating name="read-only" value={Number(dataDetail.rating)} readOnly precision={0.5} />
                       <Typography variant="h6" color="text.primary">Origin: {dataDetail.origin}</Typography>
                     </Grid>
                     <Grid className='col' item xs={12} sm={12} md={6} lg={6}
@@ -245,12 +254,14 @@ export default function Display() {
                           </div> <br />
                           <div>
                             <Field
-                              as={TextField}
+                              as={Rating}
                               id="rating"
                               name="rating"
                               label="rating"
-                              value={values.rating}
-                              onChange={handleChange} style={{ width: '100%' }}
+                              value={Number(values.rating)}
+                              onChange={handleChange}
+                              precision={0.5}
+                              max={5}
                             />
                             <ErrorMessage name="rating">
                               {msg => <Alert severity="error">{msg}</Alert>}
