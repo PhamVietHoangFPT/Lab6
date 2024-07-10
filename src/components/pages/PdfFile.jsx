@@ -38,8 +38,8 @@ export default function PdfFile() {
   }
 
   return (
-    <PDFViewer width="100%" height="1000">
-      <Document>
+    <PDFViewer width="100%" height="1000" >
+      <Document title={dataDetail.name}>
         <Page size="A4">
           <View>
             <Text>{dataDetail.name}</Text>
