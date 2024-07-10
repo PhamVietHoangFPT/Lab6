@@ -13,6 +13,7 @@ import CreateOrchid from './components/content/CreateOrchid'
 import { useEffect } from 'react'
 import { gapi } from 'gapi-script'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import PdfFile from './components/pages/PdfFile'
 export default function App() {
 
   const clientId = "629470625241-il5it1rn5pejaltppdm23jog45iat57b.apps.googleusercontent.com";
@@ -39,6 +40,7 @@ export default function App() {
           <Route path='/about' element={<About />}></Route>
           <Route path="/" element={<Navigate replace to="/home" />} />
           <Route path='/create' element={<CreateOrchid></CreateOrchid>}></Route>
+          <Route path='/pdfFile/:id' element={<PdfFile></PdfFile>}></Route>
         </Routes>
         <Footer></Footer>
       </BrowserRouter>

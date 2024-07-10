@@ -5,8 +5,8 @@ import { jwtDecode } from 'jwt-decode';
 function Login() {
   const response = (response) => {
     const decoded = jwtDecode(response.credential);
-    localStorage.setItem("userToken", response.credential);
     localStorage.setItem("userInfo", JSON.stringify(decoded));
+    localStorage.setItem("userToken", response.credential);
     window.location.reload();
   }
   const error = (error) => {

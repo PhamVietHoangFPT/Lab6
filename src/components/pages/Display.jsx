@@ -5,6 +5,7 @@ import { Grid, Card, CardMedia, CardContent, Button, CardHeader, TextField, Aler
 import { Typography, Rating, Chip } from '@mui/material'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import useToggle from '../../CustomHook/useToggle'
+
 export default function Display() {
   const [update, setUpdate] = useState(false)
   const [dataDetail, setDataDetail] = useState([])
@@ -113,6 +114,9 @@ export default function Display() {
 
   return (
     <>
+      <Button onClick={() => navigate(`/pdfFile/${dataDetail.id}`)}>
+        Pdf File
+      </Button>
       {responseCodeDisplay.toString().startsWith('2') ? (
         <div style={{
           // backgroundColor: darkMode ? '#fff' : '#6f6f6f',
@@ -144,7 +148,6 @@ export default function Display() {
             alignContent: 'center',
             padding: '10px',
           }}>
-
             <Card sx={{
               backgroundColor: '#dbd1d0',
               boxShadow: darkMode ? 'rgba(255, 255, 255, 0.8) 0px 22px 70px 4px' : 'rgba(0, 0, 0, 0.8) 0px 22px 70px 4px',
@@ -375,9 +378,7 @@ export default function Display() {
                 </Button>
               </div>
             </Card>
-
           </div>
-
         </div >
       ) : (
         <div style={{
